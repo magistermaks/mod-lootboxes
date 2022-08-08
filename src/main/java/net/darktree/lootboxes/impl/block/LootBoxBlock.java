@@ -40,12 +40,13 @@ public abstract class LootBoxBlock extends Block implements DefaultLoot {
 		ItemStack tool = builder.get(LootContextParameters.TOOL);
 		Entity entity = builder.getNullable(LootContextParameters.THIS_ENTITY);
 		World world = builder.getWorld();
+		BlockPos pos = new BlockPos(builder.get(LootContextParameters.ORIGIN));
 
 		if (entity instanceof PlayerEntity player && player.isCreative()) {
 			return Collections.emptyList();
 		}
 
-		return LootProvider.get(this, tool, world, entity);
+		return LootProvider.get(this, tool, world, pos, entity);
 	}
 
 }

@@ -3,11 +3,16 @@
 	"id": "loot_boxes",
 	"version": "${version}",
 	"name": "Urns",
-	"description": "Adds data driven loot urns",
+	"description": "Adds data driven loot boxes",
 	"authors": [
 		"magistermaks"
 	],
-	"contact": {},
+	"contact": {
+		"issues": "https://github.com/magistermaks/mod-lootboxes/issues",
+		"github": "https://github.com/magistermaks/mod-lootboxes",
+		"website": "http://darktree.net",
+		"homepage": "http://darktree.net"
+	},
 	"license": "LGPL-3.0",
 	"icon": "assets/loot_boxes/icon.png",
 	"environment": "*",
@@ -20,7 +25,7 @@
 		"urns.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.13.3",
+		"fabricloader": ">=0.10.8",
 		"fabric": "*",
 		"minecraft": "1.17.1"
 	}

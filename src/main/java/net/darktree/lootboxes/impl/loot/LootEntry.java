@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -29,7 +30,7 @@ public class LootEntry implements LootGenerator {
 		this.id = id;
 	}
 
-	public void generate(List<ItemStack> stacks, World world, Random random, @Nullable Entity entity) {
+	public void generate(List<ItemStack> stacks, World world, BlockPos pos, Random random, @Nullable Entity entity) {
 		if (random.nextFloat() < this.chance) {
 			stacks.add(new ItemStack(item));
 		}

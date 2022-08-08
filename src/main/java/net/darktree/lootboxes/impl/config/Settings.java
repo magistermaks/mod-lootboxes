@@ -1,8 +1,10 @@
 package net.darktree.lootboxes.impl.config;
 
+import net.darktree.lootboxes.LootBoxes;
+
 public class Settings {
 
-	private final SimpleConfig CONFIG = SimpleConfig.of( "config" ).provider((name) ->
+	private final SimpleConfig CONFIG = SimpleConfig.of(LootBoxes.NAMESPACE).provider((name) ->
 		"# See the list of available config options on the mod's github page"
 	).request();
 
