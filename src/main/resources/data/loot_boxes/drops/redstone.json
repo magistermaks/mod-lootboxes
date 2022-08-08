@@ -1,0 +1,6 @@
+{
+	"type": "COMMON",
+	"targets": ["URN"],
+	"item": "minecraft:redstone",
+	"chance": 12.0
+}

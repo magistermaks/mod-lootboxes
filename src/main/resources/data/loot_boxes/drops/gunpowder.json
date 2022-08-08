@@ -1,0 +1,6 @@
+{
+	"type": "COMMON",
+	"targets": ["URN"],
+	"item": "minecraft:gunpowder",
+	"chance": 29.6
+}

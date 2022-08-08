@@ -1,0 +1,6 @@
+{
+	"type": "TREASURE",
+	"targets": ["URN"],
+	"item": "minecraft:gold_ingot",
+	"chance": 12.1
+}

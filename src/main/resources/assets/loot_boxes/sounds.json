@@ -1,0 +1,11 @@
+{
+	"urn_broken": {
+		"subtitle": "sound.loot_boxes.urn_broken",
+		"sounds": [
+			"loot_boxes:urn_1",
+			"loot_boxes:urn_2",
+			"loot_boxes:urn_3",
+			"loot_boxes:urn_4"
+		]
+	}
+}

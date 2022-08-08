@@ -1,0 +1,6 @@
+{
+	"type": "COMMON",
+	"targets": ["URN"],
+	"item": "minecraft:iron_ingot",
+	"chance": 11.0
+}

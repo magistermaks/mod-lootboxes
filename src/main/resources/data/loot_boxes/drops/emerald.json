@@ -1,0 +1,6 @@
+{
+	"type": "COMMON",
+	"targets": ["URN"],
+	"item": "minecraft:emerald",
+	"chance": 23.4
+}

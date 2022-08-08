@@ -1,0 +1,6 @@
+{
+	"type": "COMMON",
+	"targets": ["URN"],
+	"item": "minecraft:lapis_lazuli",
+	"chance": 11.0
+}

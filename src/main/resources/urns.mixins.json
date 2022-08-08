@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "net.darktree.lootboxes.impl.mixin",
+	"compatibilityLevel": "JAVA_16",
+	"mixins": [
+		"DesertTempleGeneratorMixin",
+		"JungleTempleGeneratorMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

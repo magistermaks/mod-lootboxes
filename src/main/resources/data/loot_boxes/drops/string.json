@@ -1,0 +1,6 @@
+{
+	"type": "TRASH",
+	"targets": ["URN"],
+	"item": "minecraft:string",
+	"chance": 3.2
+}

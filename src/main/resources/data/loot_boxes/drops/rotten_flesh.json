@@ -1,0 +1,6 @@
+{
+	"type": "TRASH",
+	"targets": ["URN"],
+	"item": "minecraft:rotten_flesh",
+	"chance": 3.2
+}
