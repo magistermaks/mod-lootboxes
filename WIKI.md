@@ -37,22 +37,26 @@ inside that file place this code (Excluding the comments!)
     // ths item ID to drop
     "item": "minecraft:wheat",
     
-    // the chance (procentage) that this item will get dropped from 0 to 100
+    // the chance (procentage) that this item will get dropped, from 0 to 100
     "chance": 10.0
+    
+    // custom NBT data to add to the item (optional)
+    "nbt": "{display:{Lore:['[{\"text\":\"Custom NBT tag!\",\"italic\":false}]']}}"
 }
 ```
 
-Now there should be a 10% chance wheat would drop when breaking Urns,
-If you create a drop entry with the same name as one of already existing ones, it will replace it
+Now there should be a 10% chance wheat would drop when breaking Urns.
+**Note**: If you create a drop entry with the same name as one of already existing ones, it will replace it
 
-#### Removing drop entire
-If you want to remove one of the drop entires (for example `data/loot_boxes/drops/diamonds.json`) 
-create a file of the same name and put an empty JSON object inside (`{}`), 
+#### Removing a drop entirely
+If you want to remove one of the drops (for example `data/loot_boxes/drops/diamonds.json`) 
+create a file with the same name and put an empty JSON object inside (`{}`), 
 when you do that the old entry will get removed. This also works for entries added with the Java API.
 
 ## Java API
 Sometimes when you need additional control over what items are dropped, for example 
-if you want to drop some item only in some biomes or at some Y-levels, for that exact reason exists the Java API
+if you want to drop some item only in some biomes or at some Y-levels a JSON file will not suffice, 
+for that exact reason exists the Java API.
 
 To be able to use it you will first need to add Loot Boxes to your `build.gradle`:
 ```gradle
@@ -69,18 +73,18 @@ dependencies {
 ```
 
 #### Adding drops using the Java API
-When using a Java API you directly provide a ItemStack generator, so you have to decide yourself
-when to add your item to the output array.
+When using the Java API you directly provide an `ItemStack` generator, so you have to decide yourself
+when to add your item to the output array (you can also add multiple).
 
 ```java
 LootBoxes.register(LootBoxType.URN, "modid_custom_generator", (stacks, world, pos, random, entity) -> {
 	if (random.nextBoolean()) { // 50% spawn chance
 		stacks.add(new ItemStack(Items.DIRT));
 	}
-})
+});
 ```
 
-**Note**: Generators defined using the Java API can be overwritten from the datapack 
+**Note**: Generators defined using the Java API can still be overwritten from the datapack 
 by creating a drops entry with the same name as the generator.
 
 #### Adding Loot Boxes to XYZ
@@ -92,7 +96,7 @@ just make sure not to do it in the initializer but when you need it (also make s
 
 ## Notes
 - What if for some storage reason I hate life and would prefer to use the vanilla loot table instead? 
-You can nuke all of this by providing a vanilla loot table for the `loot_boxes:urn` block. By please don't
+You can nuke all of this by providing a vanilla loot table for the `loot_boxes:urn` block. But please don't
 do it.
 - Why make such a (relatively speaking) complex mod to add a single block? I do plan to add more loot box types,
-this was made in a hurry as I need to split it off another mod that was nearing its release - Stylish Occult.
+this was made in a hurry as I needed to split urns off another mod that was nearing its release - Stylish Occult.

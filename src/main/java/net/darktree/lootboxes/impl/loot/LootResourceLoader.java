@@ -3,7 +3,6 @@ package net.darktree.lootboxes.impl.loot;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import net.darktree.lootboxes.LootBoxes;
 import net.darktree.lootboxes.api.LootBoxType;
 import net.darktree.lootboxes.api.LootGenerator;

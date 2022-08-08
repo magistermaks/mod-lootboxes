@@ -2,7 +2,6 @@ package net.darktree.lootboxes.impl.mixin;
 
 import net.darktree.lootboxes.LootBoxes;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.structure.DesertTempleGenerator;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructurePieceType;

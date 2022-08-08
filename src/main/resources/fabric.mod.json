@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "loot_boxes",
 	"version": "${version}",
-	"name": "Urns",
+	"name": "Loot Boxes",
 	"description": "Adds data driven loot boxes",
 	"authors": [
 		"magistermaks"
