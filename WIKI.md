@@ -4,6 +4,9 @@ you can disable that (or tweak the chance) using the config file `loot_boxes.pro
 
 The list of available options:
 ```properties
+# Boolean, controls whether loot boxes should drop experience when broken
+drop_experience=true/false
+
 # Boolean, controls whether urns should generate in jungle temples
 add_to_jungle_temples=true/false
 
@@ -46,8 +49,11 @@ inside that file place this code (Excluding the comments!)
     // the chance (procentage) that this item will get dropped, from 0 to 100
     "chance": 10.0
     
-    // custom NBT data to add to the item (optional)
+    // optional, custom NBT data to add to the item
     "nbt": "{display:{Lore:['[{\"text\":\"Custom NBT tag!\",\"italic\":false}]']}}"
+    
+    // optional, if set to true this entry will not generate for urns placed by players in survival mode
+    "untouched": false
 }
 ```
 
@@ -74,8 +80,8 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.darktree:lootboxes:0.1.1"
-    // include "net.darktree:lootboxes:0.1.1" // optional, bundle Loot Boxes inside of your mod
+    modImplementation "net.darktree:lootboxes:0.1.2"
+    // include "net.darktree:lootboxes:0.1.2" // optional, bundle Loot Boxes inside of your mod
 }
 ```
 
@@ -84,12 +90,15 @@ When using the Java API you directly provide an `ItemStack` generator, so you ha
 when to add your item to the output array (you can also add multiple).
 
 ```java
-LootBoxes.register(LootBoxType.URN, "modid_custom_generator", (stacks, world, pos, random, entity) -> {
+LootBoxes.register(LootBoxType.URN, "modid_custom_generator", (stacks, world, pos, random, entity, moved) -> {
 	if (random.nextBoolean()) { // 50% spawn chance
 		stacks.add(new ItemStack(Items.DIRT));
 	}
 });
 ```
+
+The `move` property can be used to detect if the loot box was picked up by a player
+with Silk Touch and placed somewhere else.
 
 **Note**: Generators defined using the Java API can still be overwritten from the datapack 
 by creating a drops entry with the same name as the generator.

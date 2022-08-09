@@ -5,6 +5,8 @@ import net.darktree.lootboxes.LootBoxes;
 import net.darktree.lootboxes.api.LootBoxType;
 import net.darktree.lootboxes.api.LootGenerator;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.util.Identifier;
@@ -18,24 +20,44 @@ import java.util.Random;
 
 public class LootEntry implements LootGenerator {
 
-	public final Type type;
 	public final LootBoxType[] targets;
-	public final ItemStack stack;
-	public final float chance;
-	public final Identifier id;
 
-	public LootEntry(Type type, LootBoxType[] targets, ItemStack stack, float chance, Identifier id) {
+	private final Type type;
+	private final ItemStack stack;
+	private final float chance;
+	private final boolean untouched;
+
+	public LootEntry(Type type, LootBoxType[] targets, ItemStack stack, float chance, boolean untouched) {
 		this.type = type;
 		this.targets = targets;
 		this.stack = stack;
 		this.chance = chance;
-		this.id = id;
+		this.untouched = untouched;
 	}
 
-	public void generate(List<ItemStack> stacks, World world, BlockPos pos, Random random, @Nullable Entity entity) {
-		if (random.nextFloat() < this.chance) {
-			stacks.add(stack);
+	public void generate(List<ItemStack> stacks, World world, BlockPos pos, Random random, @Nullable Entity entity, boolean moved) {
+		float luck = 0;
+
+		if (this.untouched && moved) {
+			return;
 		}
+
+		if (entity instanceof PlayerEntity player) {
+			luck += player.hasStatusEffect(StatusEffects.LUCK) ? 1 : 0;
+			luck -= player.hasStatusEffect(StatusEffects.UNLUCK) ? 1 : 0;
+		}
+
+		if (random.nextFloat() < getChance(luck)) {
+			stacks.add(stack.copy());
+		}
+	}
+
+	private float getChance(float luck) {
+		return this.chance * switch (this.type) {
+			case TRASH -> (1 - luck * 0.5f);
+			case COMMON -> 1;
+			case TREASURE -> (1 + luck * 0.5f);
+		};
 	}
 
 	public static class Json {
@@ -44,7 +66,8 @@ public class LootEntry implements LootGenerator {
 		public LootBoxType[] targets;
 		public String item;
 		public float chance;
-		public String nbt;
+		public String nbt = null;
+		public boolean untouched = false;
 
 		public LootEntry build(Identifier id) {
 			ItemStack stack = new ItemStack(Registry.ITEM.get(new Identifier(item)));
@@ -61,7 +84,7 @@ public class LootEntry implements LootGenerator {
 				LootBoxes.LOGGER.warn("Empty stack used in loot box drop entry '" + id + "'!");
 			}
 
-			return new LootEntry(type, targets, stack, chance / 100f, id);
+			return new LootEntry(type, targets, stack, chance / 100f, untouched);
 		}
 
 	}

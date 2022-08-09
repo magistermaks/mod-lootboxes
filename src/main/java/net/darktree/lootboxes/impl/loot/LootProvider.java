@@ -9,6 +9,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +22,7 @@ public class LootProvider {
 
 	private static final LootResourceLoader LOADER = new LootResourceLoader();
 
-	public static List<ItemStack> get(LootBoxBlock box, ItemStack tool, World world, BlockPos pos, @Nullable Entity entity) {
+	public static List<ItemStack> get(LootBoxBlock box, ItemStack tool, World world, BlockPos pos, @Nullable Entity entity, boolean moved) {
 		if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) > 0) {
 			return Collections.singletonList(new ItemStack(box.asItem()));
 		}
@@ -36,7 +37,7 @@ public class LootProvider {
 			}
 
 			for (LootGenerator entry : LOADER.getEntries(box.type)) {
-				entry.generate(stacks, world, pos, world.getRandom(), entity);
+				entry.generate(stacks, world, pos, world.getRandom(), entity, moved);
 			}
 
 			attempts ++;
@@ -44,6 +45,11 @@ public class LootProvider {
 
 		if (attempts > 4) {
 			LootBoxes.LOGGER.warn("Loot generation for target: '{}' took more than 4 attempts.", box.type);
+		}
+
+		// this should always be true, but just in case
+		if (world instanceof ServerWorld serverWorld) {
+			box.dropExperience(serverWorld, pos);
 		}
 
 		return stacks;

@@ -2,5 +2,6 @@
 	"type": "TREASURE",
 	"targets": ["URN"],
 	"item": "minecraft:diamond",
-	"chance": 5.9
+	"chance": 5.9,
+	"untouched": true
 }
