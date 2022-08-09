@@ -5,7 +5,8 @@
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [
 		"DesertTempleGeneratorMixin",
-		"JungleTempleGeneratorMixin"
+		"JungleTempleGeneratorMixin",
+		"MineshaftGeneratorMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

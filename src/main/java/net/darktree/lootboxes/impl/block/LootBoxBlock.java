@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
@@ -18,7 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class LootBoxBlock extends Block implements DefaultLoot {
@@ -41,10 +39,6 @@ public abstract class LootBoxBlock extends Block implements DefaultLoot {
 		Entity entity = builder.getNullable(LootContextParameters.THIS_ENTITY);
 		World world = builder.getWorld();
 		BlockPos pos = new BlockPos(builder.get(LootContextParameters.ORIGIN));
-
-		if (entity instanceof PlayerEntity player && player.isCreative()) {
-			return Collections.emptyList();
-		}
 
 		return LootProvider.get(this, tool, world, pos, entity);
 	}

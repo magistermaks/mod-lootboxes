@@ -16,4 +16,8 @@ public class Settings {
 	public final boolean add_to_desert_temples = CONFIG.getOrDefault("add_to_jungle_temples", true);
 	public final double desert_temple_spawn_chance = CONFIG.getOrDefault("jungle_temple_spawn_chance", 80.0);
 
+	// Mineshaft Corridor
+	public final boolean add_to_mineshaft = CONFIG.getOrDefault("add_to_mineshaft", true);
+	public final double mineshaft_spawn_chance = CONFIG.getOrDefault("mineshaft_spawn_chance", 4.0);
+
 }

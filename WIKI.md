@@ -1,5 +1,5 @@
 ## Config
-Loot Boxes by default generate Urns in some vanilla structures (Jungle Temples and Desert Temples)
+Loot Boxes by default generate Urns in some vanilla structures (Jungle Temples, Desert Temples and Mineshaft Corridors)
 you can disable that (or tweak the chance) using the config file `loot_boxes.properites`
 
 The list of available options:
@@ -7,14 +7,20 @@ The list of available options:
 # Boolean, controls whether urns should generate in jungle temples
 add_to_jungle_temples=true/false
 
-# Number in range 0-100, controls the chance that individual urns will generate in the jungle temple
+# Number in range 0-100, controls the chance of individual urns generating in the jungle temple
 jungle_temple_spawn_chance=0/100
 
 # Boolean, controls whether urns should generate in desert temples
 add_to_desert_temples=true/false
 
-# Number in range 0-100, controls the chance that individual urns will generate in the desert temple
+# Number in range 0-100, controls the chance of individual urns generating in the desert temple
 desert_temple_spawn_chance=0/100
+
+# Boolean, controls whether urns should generate in mineshaft corridors
+add_to_mineshaft=true/false
+
+# Number in range 0-100, controls the chance of individual urns generating in the mineshaft corridors
+mineshaft_spawn_chance=0/100
 ```
 
 ## JSON API
@@ -45,7 +51,7 @@ inside that file place this code (Excluding the comments!)
 }
 ```
 
-Now there should be a 10% chance wheat would drop when breaking Urns.
+Now there should be a 10% chance wheat would drop when breaking Urns.  
 **Note**: If you create a drop entry with the same name as one of already existing ones, it will replace it
 
 #### Removing a drop entirely
@@ -68,7 +74,7 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.darktree:lootboxes:0.1.0"
+    modImplementation "net.darktree:lootboxes:0.1.1"
 }
 ```
 
