@@ -40,7 +40,7 @@ inside that file place this code (Excluding the comments!)
     // the types of loot boxes to which this drop applies, for now only "URN" exists
     "targets": ["URN"],
     
-    // ths item ID to drop
+    // the item ID to drop
     "item": "minecraft:wheat",
     
     // the chance (procentage) that this item will get dropped, from 0 to 100
@@ -52,7 +52,7 @@ inside that file place this code (Excluding the comments!)
 ```
 
 Now there should be a 10% chance wheat would drop when breaking Urns.  
-**Note**: If you create a drop entry with the same name as one of already existing ones, it will replace it
+**Note**: If you create a drop entry with the same name as one of the already existing ones, it will replace it
 
 #### Removing a drop entirely
 If you want to remove one of the drops (for example `data/loot_boxes/drops/diamonds.json`) 
@@ -75,6 +75,7 @@ repositories {
 
 dependencies {
     modImplementation "net.darktree:lootboxes:0.1.1"
+    // include "net.darktree:lootboxes:0.1.1" // optional, bundle Loot Boxes inside of your mod
 }
 ```
 
