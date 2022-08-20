@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ public abstract class JungleTempleGeneratorMixin extends StructurePiece {
 	}
 
 	@Inject(method="generate", at=@At("TAIL"))
-	private void lootboxes_generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+	private void lootboxes_generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox box, ChunkPos chunkPos, BlockPos pos, CallbackInfo ci) {
 		if (LootBoxes.SETTINGS.add_to_jungle_temples) {
 			final double chance = LootBoxes.SETTINGS.jungle_temple_spawn_chance / 100.0;
 			final BlockState urn = LootBoxes.URN_BLOCK.getDefaultState();

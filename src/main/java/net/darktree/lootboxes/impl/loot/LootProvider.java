@@ -22,7 +22,7 @@ public class LootProvider {
 
 	private static final LootResourceLoader LOADER = new LootResourceLoader();
 
-	public static List<ItemStack> get(LootBoxBlock box, ItemStack tool, World world, BlockPos pos, @Nullable Entity entity, boolean moved) {
+	public static List<ItemStack> get(LootBoxBlock box, ItemStack tool, World world, BlockPos pos, @Nullable Entity entity, boolean moved, int count) {
 		if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) > 0) {
 			return Collections.singletonList(new ItemStack(box.asItem()));
 		}
@@ -30,7 +30,7 @@ public class LootProvider {
 		List<ItemStack> stacks = new ArrayList<>();
 		int attempts = 0;
 
-		while (stacks.isEmpty()) {
+		while (stacks.size() < count) {
 			if (attempts > 16) {
 				LootBoxes.LOGGER.error("Loot generation for target: '{}' took more than 16 attempts and was aborted!", box.type);
 				return Collections.emptyList();

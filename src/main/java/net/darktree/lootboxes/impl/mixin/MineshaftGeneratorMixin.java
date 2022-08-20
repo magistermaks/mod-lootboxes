@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
@@ -31,7 +32,7 @@ public abstract class MineshaftGeneratorMixin extends StructurePiece {
 	}
 
 	@Inject(method="generate", at=@At("TAIL"))
-	private void lootboxes_generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox box, ChunkPos chunkPos, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+	private void lootboxes_generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox box, ChunkPos chunkPos, BlockPos pos, CallbackInfo ci) {
 		if (LootBoxes.SETTINGS.add_to_mineshaft) {
 			final double chance = LootBoxes.SETTINGS.mineshaft_spawn_chance / 100.0;
 			final BlockState urn = LootBoxes.URN_BLOCK.getDefaultState();

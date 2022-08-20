@@ -6,6 +6,7 @@ import net.darktree.lootboxes.api.LootBoxType;
 import net.darktree.lootboxes.impl.loot.LootProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -31,7 +32,7 @@ import net.minecraft.world.WorldAccess;
 
 import java.util.List;
 
-public abstract class LootBoxBlock extends Block implements DefaultLoot {
+public abstract class LootBoxBlock extends Block implements DefaultLoot, Waterloggable {
 
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	public static final BooleanProperty MOVED = BooleanProperty.of("moved");
@@ -49,6 +50,10 @@ public abstract class LootBoxBlock extends Block implements DefaultLoot {
 		if (LootBoxes.SETTINGS.drop_experience) {
 			dropExperience(world, pos, MathHelper.nextBetween(world.getRandom(), 2, 10));
 		}
+	}
+
+	protected int getStackCount() {
+		return 1;
 	}
 
 	@Override
@@ -69,7 +74,7 @@ public abstract class LootBoxBlock extends Block implements DefaultLoot {
 		World world = builder.getWorld();
 		BlockPos pos = new BlockPos(builder.get(LootContextParameters.ORIGIN));
 
-		return LootProvider.get(this, tool, world, pos, entity, state.get(MOVED));
+		return LootProvider.get(this, tool, world, pos, entity, state.get(MOVED), getStackCount());
 	}
 
 	@Override
@@ -93,7 +98,7 @@ public abstract class LootBoxBlock extends Block implements DefaultLoot {
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
 		if (state.get(WATERLOGGED)) {
-			world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+			world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
 		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
