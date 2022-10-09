@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
@@ -40,7 +39,7 @@ public abstract class MineshaftGeneratorMixin extends StructurePiece {
 			for (int z = 1; z <= this.length * 5 - 1; z += 6) {
 				int x = random.nextBoolean() ? 0 : 2;
 
-				if (this.getBlockAt(world, x, 0, z, box).isAir()) {
+				if (this.getBlockAt(world, x, 0, z, box).isAir() && !getBlockAt(world, x, -1, z, box).isAir()) {
 					randomlyPlace(world, urn, x, 0, z, chance, box, random);
 				}
 			}
