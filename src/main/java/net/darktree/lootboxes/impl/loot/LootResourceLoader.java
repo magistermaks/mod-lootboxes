@@ -7,6 +7,7 @@ import net.darktree.lootboxes.LootBoxes;
 import net.darktree.lootboxes.api.LootBoxType;
 import net.darktree.lootboxes.api.LootGenerator;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
@@ -36,20 +37,19 @@ public class LootResourceLoader implements SimpleSynchronousResourceReloadListen
 			LOOT.get(supplier.type).put(new Identifier(LootBoxes.NAMESPACE, "drops/" + supplier.name), supplier.generator);
 		}
 
-		for(Identifier id : manager.findResources("drops", path -> path.endsWith(".json"))) {
-			if (id.getNamespace().equals(LootBoxes.NAMESPACE)) {
-				try(InputStream stream = manager.getResource(id).getInputStream()) {
-					apply(id, new InputStreamReader(stream, StandardCharsets.UTF_8));
+		for(Map.Entry<Identifier, Resource> entry : manager.findResources("drops", path -> path.getPath().endsWith(".json")).entrySet()) {
+			if (entry.getKey().getNamespace().equals(LootBoxes.NAMESPACE)) {
+				try(InputStream stream = entry.getValue().getInputStream()) {
+					apply(entry.getKey(), new InputStreamReader(stream, StandardCharsets.UTF_8));
 				} catch(Exception e) {
-					LootBoxes.LOGGER.error("Error occurred while loading resource json: " + id, e);
+					LootBoxes.LOGGER.error("Error occurred while loading resource json: " + entry.getKey(), e);
 				}
 			}
 		}
 	}
 
 	public void apply(Identifier identifier, Reader reader) {
-		JsonParser jsonParser = new JsonParser();
-		JsonElement element = jsonParser.parse(reader);
+		JsonElement element = JsonParser.parseReader(reader);
 
 		// check if the entry is empty (for removal)
 		if (element.getAsJsonObject().size() == 0) {

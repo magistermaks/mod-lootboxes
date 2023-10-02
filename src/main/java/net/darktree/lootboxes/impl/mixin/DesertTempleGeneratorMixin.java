@@ -8,6 +8,7 @@ import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -18,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Random;
-
 @Mixin(DesertTempleGenerator.class)
 public abstract class DesertTempleGeneratorMixin extends StructurePiece {
 
@@ -28,7 +27,7 @@ public abstract class DesertTempleGeneratorMixin extends StructurePiece {
 		}
 
 		@Inject(method="generate", at=@At("TAIL"))
-		private void lootboxes_generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox box, ChunkPos chunkPos, BlockPos pos, CallbackInfo ci) {
+		private void lootboxes_generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox box, ChunkPos chunkPos, BlockPos pivot, CallbackInfo ci) {
 			if (LootBoxes.SETTINGS.add_to_desert_temples) {
 				final double chance = LootBoxes.SETTINGS.desert_temple_spawn_chance / 100.0;
 				final BlockState urn = LootBoxes.URN_BLOCK.getDefaultState();
