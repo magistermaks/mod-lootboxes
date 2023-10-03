@@ -1,11 +1,12 @@
 package net.darktree.lootboxes.impl;
 
 import net.darktree.lootboxes.LootBoxes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class Sounds {
 
@@ -19,7 +20,7 @@ public class Sounds {
 
 	private static SoundEvent register(String name) {
 		Identifier id = LootBoxes.id(name);
-		return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(id));
+		return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
 	}
 
 }

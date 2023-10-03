@@ -9,10 +9,10 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,7 +70,7 @@ public class LootEntry implements LootGenerator {
 		public boolean untouched = false;
 
 		public LootEntry build(Identifier id) {
-			ItemStack stack = new ItemStack(Registry.ITEM.get(new Identifier(item)));
+			ItemStack stack = new ItemStack(Registries.ITEM.get(new Identifier(item)));
 
 			if (nbt != null) {
 				try {
