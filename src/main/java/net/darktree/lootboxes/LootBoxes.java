@@ -12,10 +12,9 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -31,7 +30,7 @@ public class LootBoxes implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("Loot Boxes");
 	public static final String NAMESPACE = "loot_boxes";
 
-	public static final Block URN_BLOCK = new UrnBlock(FabricBlockSettings.of(Material.GLASS).mapColor(DyeColor.BROWN).strength(0.1f, 6.0f).sounds(Sounds.URN));
+	public static final Block URN_BLOCK = new UrnBlock(FabricBlockSettings.create().pistonBehavior(PistonBehavior.DESTROY).mapColor(DyeColor.BROWN).strength(0.1f, 6.0f).sounds(Sounds.URN));
 	public static final Item URN_ITEM = new BlockItem(URN_BLOCK, new Item.Settings().rarity(Rarity.UNCOMMON));
 
 	@Override
